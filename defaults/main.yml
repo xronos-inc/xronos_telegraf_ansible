@@ -1,0 +1,3 @@
+---
+deployment: "xronos"
+telegraf_path: "/opt/{{ deployment }}/telegraf"

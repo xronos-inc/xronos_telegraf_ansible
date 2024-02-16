@@ -1,0 +1,12 @@
+galaxy_info:
+  role_name: xronos_telegraf_ansible
+  author: Xronos, Inc.
+  min_ansible_version: "2.15"
+  description: "Provision a telegraf instance for use with Xronos applications"
+  license: proprietary
+  platforms:
+    - name: Ubuntu
+      versions:
+        - all
+collections:
+  - community.docker

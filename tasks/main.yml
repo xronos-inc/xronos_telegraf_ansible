@@ -1,0 +1,33 @@
+# code: language=ansible
+---
+- name: Apt update cache
+  ansible.builtin.apt:
+    update_cache: true
+    cache_valid_time: 3600 # 1 hr
+  become: true
+  
+- name: "Create application directory {{ telegraf_path }}"
+  ansible.builtin.file:
+    path: "{{ telegraf_path }}"
+    state: directory
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: 0755
+  become: true
+
+- name: "Deploy telegraf configuration"
+  ansible.builtin.template:
+    src:  "telegraf.conf"
+    dest: "{{ telegraf_path }}/telegraf.conf"
+
+- name: "Start docker container {{ deployment }}-telegraf"
+  community.docker.docker_container:
+    name: "{{ deployment }}-telegraf"
+    image: telegraf:latest
+    hostname: "{{ deployment }}-telegraf"
+    restart_policy: unless-stopped
+    ports:
+      - "8186:8186/tcp"
+      - "8094:8094/udp"
+    volumes:
+      - "{{ telegraf_path }}/telegraf.conf:/etc/telegraf/telegraf.conf:ro"
