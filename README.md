@@ -36,12 +36,14 @@ Remote host:
 
 After running, the following services should be running:
 
-- InfluxDB: `http://influxdb:8086`
+- telegraf: `http://telegraf:8186` TCP listener
+- telegraf: `telegraf:8094` UDP listener
 
 ## Variables
 
 - `deployment` (= `xronos` ): The name of this deployment. Used to prefix filesystem and docker resources so that more than once instance of this service may coexist on the same host.
 - `telegraf_path` (= `/opt/{{ deployment }}/telegraf` ): The path to store telegraf configuration.
+- `telegraf_docker_network`: Docker network in which to run the container.
 - `telegraf_influxdb_url`: InfluxDB URL including port.
 - `telegraf_influxdb_bucket`: InfluxDB default bucket.
 - `telegraf_influxdb_org`: InfluxDB organization.

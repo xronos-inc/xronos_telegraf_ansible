@@ -20,11 +20,18 @@
     src:  "telegraf.conf"
     dest: "{{ telegraf_path }}/telegraf.conf"
 
+- name: Docker network create '{{ telegraf_docker_network }}'
+  community.docker.docker_network:
+    name: "{{ telegraf_docker_network }}"
+  when: telegraf_docker_network != 'host'
+
 - name: "Start docker container {{ deployment }}-telegraf"
   community.docker.docker_container:
     name: "{{ deployment }}-telegraf"
     image: telegraf:latest
     hostname: "{{ deployment }}-telegraf"
+    networks:
+      - name: "{{ telegraf_docker_network }}"
     restart_policy: unless-stopped
     ports:
       - "8186:8186/tcp"

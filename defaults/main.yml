@@ -1,3 +1,4 @@
 ---
 deployment: "xronos"
 telegraf_path: "/opt/{{ deployment }}/telegraf"
+telegraf_docker_network: "{{ deployment }}"
