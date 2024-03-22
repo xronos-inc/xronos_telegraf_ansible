@@ -10,8 +10,6 @@
   ansible.builtin.file:
     path: "{{ telegraf_path }}"
     state: directory
-    owner: "{{ ansible_user }}"
-    group: "{{ ansible_user }}"
     mode: 0755
   become: true
 
@@ -19,6 +17,7 @@
   ansible.builtin.template:
     src:  "telegraf.conf"
     dest: "{{ telegraf_path }}/telegraf.conf"
+  become: true
 
 - name: Docker network create '{{ telegraf_docker_network }}'
   community.docker.docker_network:
