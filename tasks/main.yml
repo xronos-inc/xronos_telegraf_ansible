@@ -22,6 +22,8 @@
 - name: Docker network create '{{ telegraf_docker_network }}'
   community.docker.docker_network:
     name: "{{ telegraf_docker_network }}"
+    driver: bridge
+    state: present
   when: telegraf_docker_network != 'host'
 
 - name: "Start docker container {{ deployment }}-telegraf"
