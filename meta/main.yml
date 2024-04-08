@@ -3,7 +3,7 @@ galaxy_info:
   company: Xronos Inc.
   min_ansible_version: "2.15"
   description: "Provision a telegraf instance for use with Xronos applications"
-  license: BSD-3
+  license: BSD-3-Clause
   platforms:
     - name: Ubuntu
       versions:
