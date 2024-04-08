@@ -1,9 +1,9 @@
 galaxy_info:
   role_name: xronos_telegraf_ansible
-  author: Xronos, Inc.
+  company: Xronos Inc.
   min_ansible_version: "2.15"
   description: "Provision a telegraf instance for use with Xronos applications"
-  license: proprietary
+  license: BSD-3
   platforms:
     - name: Ubuntu
       versions:
