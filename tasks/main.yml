@@ -2,12 +2,6 @@
 # SPDX-License-Identifier: BSD-3-Clause
 # code: language=ansible
 ---
-- name: Apt update cache
-  ansible.builtin.apt:
-    update_cache: true
-    cache_valid_time: 3600 # 1 hr
-  become: true
-  
 - name: "Create application directory {{ telegraf_path }}"
   ansible.builtin.file:
     path: "{{ telegraf_path }}"
