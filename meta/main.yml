@@ -1,14 +1,17 @@
-# SPDX-FileCopyrightText: © 2024 Xronos Inc.
+# SPDX-FileCopyrightText: (c) 2024 Xronos Inc.
 # SPDX-License-Identifier: BSD-3-Clause
+
 galaxy_info:
   role_name: xronos_telegraf_ansible
   company: Xronos Inc.
+  author: Jeff C. Jensen
   min_ansible_version: "2.15"
   description: "Provision a telegraf instance for use with Xronos applications"
   license: BSD-3-Clause
   platforms:
     - name: Ubuntu
       versions:
-        - all
+        - jammy
+        - noble
 collections:
   - community.docker

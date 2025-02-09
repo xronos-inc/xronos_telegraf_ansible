@@ -1,31 +1,37 @@
-# SPDX-FileCopyrightText: © 2024 Xronos Inc.
+# SPDX-FileCopyrightText: (c) 2024 Xronos Inc.
 # SPDX-License-Identifier: BSD-3-Clause
 # code: language=ansible
 ---
-- name: "Create application directory {{ telegraf_path }}"
+- name: Create application directory {{ telegraf_path }}
+  become: true
   ansible.builtin.file:
     path: "{{ telegraf_path }}"
     state: directory
     mode: 0755
-  become: true
 
-- name: "Deploy telegraf configuration"
+- name: Deploy telegraf configuration
+  become: true
   ansible.builtin.template:
     src:  "telegraf.conf"
     dest: "{{ telegraf_path }}/telegraf.conf"
-  become: true
 
 - name: Docker network create '{{ telegraf_docker_network }}'
+  when: telegraf_docker_network != 'host'
   community.docker.docker_network:
     name: "{{ telegraf_docker_network }}"
     driver: bridge
     state: present
-  when: telegraf_docker_network != 'host'
 
-- name: "Start docker container {{ deployment }}-telegraf"
+- name: Docker pull telegraf:{{ telegraf_version }}
+  community.docker.docker_image:
+    name: telegraf
+    tag: "{{ telegraf_version }}"
+    source: pull
+
+- name: Docker run docker container '{{ deployment }}-telegraf'
   community.docker.docker_container:
     name: "{{ deployment }}-telegraf"
-    image: telegraf:latest
+    image: telegraf:{{ telegraf_version }}
     hostname: "{{ deployment }}-telegraf"
     networks:
       - name: "{{ telegraf_docker_network }}"

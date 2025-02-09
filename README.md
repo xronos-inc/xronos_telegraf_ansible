@@ -12,11 +12,11 @@ This role performs the following steps:
 
 Provisioning host:
 
-- Ansible 2.15
+- Ansible 2.15 or later
 
 Remote host:
 
-- Ubuntu 22.04 or later
+- Ubuntu 22.04 or 24.04
 - docker
 
 ## Example playbook
@@ -41,8 +41,9 @@ After running, the following services should be running:
 
 ## Variables
 
-- `deployment` (= `xronos` ): The name of this deployment. Used to prefix filesystem and docker resources so that more than once instance of this service may coexist on the same host.
-- `telegraf_path` (= `/opt/{{ deployment }}/telegraf` ): The path to store telegraf configuration.
+- `deployment`: The name of this deployment. Used to prefix filesystem and docker resources so that more than once instance of this service may coexist on the same host. Defaults to `xronos`.
+- `telegraf_version`: Version tag of the telegraf docker image to use. Defaults to `latest`.
+- `telegraf_path`: The path to store telegraf configuration. Defaults to `/opt/{{ deployment }}/telegraf`.
 - `telegraf_docker_network`: Docker network in which to run the container.
 - `telegraf_influxdb_url`: InfluxDB URL including port.
 - `telegraf_influxdb_bucket`: InfluxDB default bucket.
